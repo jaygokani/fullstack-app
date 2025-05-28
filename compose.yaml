@@ -15,9 +15,10 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "db"]
       timeout: 20s
       retries: 10
+      start_period: 30s  # Allow MySQL to fully initialize before testing
 
   # Express Backend Service
   backend:
@@ -27,12 +28,11 @@ services:
       - "5000:5000"
     environment:
       DB_HOST: db
-      DB_USER: root
+      DB_USER: user  # Update to match MySQL user
       DB_PASSWORD: root
       DB_NAME: myapp
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     restart: always
 
   # React Frontend Service
@@ -42,7 +42,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      REACT_APP_API_URL: http://localhost:5001/api/auth
+      REACT_APP_API_URL: http://express_backend:5000/api/auth  # Corrected URL
     depends_on:
       - backend
     restart: always
