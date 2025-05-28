@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('../config.js');
 
 function createJWT(id, email, role, userOptions = {}) {
     const payload = {
@@ -8,7 +7,7 @@ function createJWT(id, email, role, userOptions = {}) {
         role: role
     }
     let options = {
-        expiresIn: config.JWT_EXPIRATION // Token expiration time
+        expiresIn: process.env.JWT_EXPIRATION // Token expiration time
     }
     if (userOptions) {
         options = {
@@ -17,7 +16,7 @@ function createJWT(id, email, role, userOptions = {}) {
         }
     }
 
-    const token = jwt.sign(payload, config.JWT_SECRET, options);
+    const token = jwt.sign(payload, process.env.JWT_SECRET, options);
 
     return token;
 }
