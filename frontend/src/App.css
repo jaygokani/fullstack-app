@@ -1,38 +1,195 @@
-.App {
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7f6;
+  color: #333;
+  line-height: 1.6;
+}
+
+.App-container { /* You might want to wrap your <Router> content in a div with this class in App.js */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Navigation Styling */
+nav {
+  background-color: #333;
+  padding: 15px 30px;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start; /* Or space-around for more spread */
+  align-items: center;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li:last-child {
+  margin-right: 0;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active { /* You might need to use NavLink from react-router-dom for 'active' class */
+  background-color: #555;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin-bottom: 25px;
+}
+
+/* Page Titles */
+h1, h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-size: 2.2em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h2 {
+  font-size: 1.8em;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* General Page Content Styling */
+.page-content { /* Wrap main content of each page in a div with this class */
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  max-width: 550px; /* Constrain width for forms */
+  margin: 20px auto; /* Center form pages */
+}
+
+/* Form Styling */
+form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 18px; /* Space between form elements */
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #34495e;
+  font-size: 0.95em;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fdfdfd;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+form button[type="submit"] {
+  padding: 12px 20px;
+  background-color: #3498db;
   color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.05em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+form button[type="submit"]:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+form button[type="submit"]:active {
+  transform: translateY(0px);
+  background-color: #2471a3;
+}
+
+
+/* Messages Styling */
+.message-success {
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  background-color: #e6ffed;
+  color: #2f6f2f;
+  border: 1px solid #b7e6c1;
+  text-align: center;
+}
+
+.message-error {
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  background-color: #ffe6e6;
+  color: #9c2b2b;
+  border: 1px solid #f8c8c8;
+  text-align: center;
+}
+
+/* Link styling for messages or redirects */
+.info-link {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.info-link:hover {
+  text-decoration: underline;
+  color: #2980b9;
+}
+
+/* Centering text for some pages like verification */
+.text-center {
+  text-align: center;
+}
+
+.verification-container p,
+.verification-container h1 {
+  text-align: center;
 }
