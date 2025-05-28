@@ -6,6 +6,8 @@ COPY package.json ./
 
 RUN bun install
 
+COPY .env.example .env
+
 COPY . .
 
 EXPOSE 5000
