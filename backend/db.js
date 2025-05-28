@@ -11,4 +11,36 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-module.exports = pool;
+async function createTables() {
+  const connection = await pool.getConnection();
+  const query = `
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('customer', 'admin') NOT NULL,
+    isVerified BOOLEAN DEFAULT FALSE,
+    emailVerificationToken VARCHAR(255) NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE (email, role)  -- unique constraint for role and email
+);`
+
+
+  try {
+    await connection.query(query);
+    console.log('Tables created.......');
+
+  } catch (error) {
+    console.error('Error during migration:', error);
+  } finally {
+    connection.release();
+  }
+}
+
+module.exports = {
+  pool,
+  createTables
+};
