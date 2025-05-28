@@ -1,8 +1,8 @@
 const bcrypt = require('bcryptjs');
-const pool = require('../db');
+const { pool } = require('../db');
 const createJWT = require('../utils/jwtToken');
 
-async function userLogin (req, res, role) {
+async function userLogin(req, res, role) {
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -16,7 +16,11 @@ async function userLogin (req, res, role) {
             return res.status(401).json({ message: 'Invalid credentials' }); // User not found
         }
 
-        const user = users[0];
+        const userIndex = users.findIndex(user => user.role == role);
+        const user = users[userIndex];
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid credentials' }); // User not found
+        }
 
         if (user.role !== role) {
             return res.status(403).json({ message: 'You are not allowed to login from here' });
@@ -37,6 +41,7 @@ async function userLogin (req, res, role) {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Set to true in production
             sameSite: 'Strict', // Adjust as needed
+            path: "/",
             maxAge: 24 * 60 * 60 * 1000, // 1 day
         })
 
