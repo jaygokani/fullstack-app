@@ -1,4 +1,4 @@
-# backend
+# techerudite_app
 
 To install dependencies:
 
